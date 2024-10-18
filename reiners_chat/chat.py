@@ -22,6 +22,10 @@ def open_chat(chat_name):
     webbrowser.open(CHATS[chat_name], new=1)
 
 
+def to_clipboard(window, chat_name: str):
+    window.clipboard_append(CHATS[chat_name])
+
+
 CHATS = get_chats()
 
 
@@ -37,5 +41,13 @@ def run():
             window, text=chat, command=lambda name=chat: open_chat(name), width=30
         )
         submit_button.grid(column=0, row=i + 1)
+        copy_button = tk.Button(
+            window, text="Copy", command=lambda name=chat: to_clipboard(window, name), width=5
+        )
+        copy_button.grid(column=1, row=i + 1)
 
     window.mainloop()
+
+
+if __name__ == "__main__":
+    run()
